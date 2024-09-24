@@ -20,7 +20,7 @@ void loop() {
     // Miganie na czerwono
     digitalWrite(ledPin, HIGH);  // Włącz diodę
     Serial.println(COLOR_RED "Dioda LED: Czerwony" COLOR_RESET);
-    delay(5000);
+    delay(500);
     digitalWrite(ledPin, LOW);  // Wyłącz diodę
     delay(500);
 
