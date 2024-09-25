@@ -1,32 +1,37 @@
-#include <Arduino.h>
+#include <Adafruit_NeoPixel.h>
 
-const int ledPin = LED_BUILTIN;  // Użyj odpowiedniego pinu dla diody LED
+#define PIN        48  // Pin do którego podłączona jest dioda WS2812B
+#define NUMPIXELS   1   // Liczba diod LED (zmień w zależności od twojego projektu)
 
-// Definiowanie kolorów
-#define COLOR_RESET   "\033[0m"  // Reset koloru
-#define COLOR_RED     "\033[31m"  // Czerwony
-#define COLOR_GREEN   "\033[32m"  // Zielony
-#define COLOR_BLUE    "\033[34m"  // Niebieski
+// Adafruit_NeoPixel strip(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
-    Serial.begin(115200);  // Ustaw prędkość komunikacji szeregowej
-    pinMode(ledPin, OUTPUT);  // Ustaw pin diody LED jako wyjście
-    Serial.println(COLOR_GREEN "I (0) example: log -> USB" COLOR_RESET);
-    Serial.println("example: print -> stdout");
-    Serial.println("example: print -> stderr");
+  Serial.begin(115200);    // Inicjalizacja portu szeregowego
+  while (!Serial) {
+    ; // Czekaj, aż port szeregowy zostanie zainicjalizowany
+  }
+  // strip.begin();           // Inicjalizacja paska LED
+  // strip.show();            // Wyświetlenie domyślnych wartości
+  Serial.println("Setup complete");
+  pixels.begin();
 }
-
 void loop() {
-    // Miganie na czerwono
-    digitalWrite(ledPin, HIGH);  // Włącz diodę
-    Serial.println(COLOR_RED "Dioda LED: Czerwony" COLOR_RESET);
-    delay(500);
-    digitalWrite(ledPin, LOW);  // Wyłącz diodę
-    delay(500);
-
-    // Dodatkowe logi
-    Serial.println(COLOR_GREEN "I (1437189) example: log -> USB" COLOR_RESET);
-    Serial.println("example: print -> stdout");
-    Serial.println("example: print -> stderr");
-    delay(500);
+  // Efekt oddychania
+  for (int brightness = 0; brightness <= 255; brightness++) {
+    pixels.setPixelColor(0, pixels.Color(brightness, 0, 0)); // Czerwony
+    pixels.show();
+    delay(10);
+  }
+  delay(1000);
+  //kounikat wdeeeeeech
+  Serial.println("Wdeeeeeeeeeeech");
+  for (int brightness = 255; brightness >= 0; brightness--) {
+    pixels.setPixelColor(0, pixels.Color(brightness, 0, 0)); // Czerwony
+    pixels.show();
+    delay(10);
+  }
+    //kounikat Wydech
+  Serial.println("Wydeeeeeeeeeeech");
+  delay(1000);
 }
